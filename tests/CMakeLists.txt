@@ -5,7 +5,8 @@ set(This LTC2943Tests)
 add_executable(${This} LTC2943Tests.cpp)
 
 add_subdirectory(googletest)
-include_directories(googletest/include)
+
+include_directories(${CMAKE_SOURCE_DIR})
 
 target_link_libraries(${This} PUBLIC 
     LTC2943 
