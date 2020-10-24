@@ -7,7 +7,7 @@ add_executable(${This} LTC2943Tests.cpp)
 add_subdirectory(googletest)
 include_directories(googletest/include)
 
-target_link_libraries(LTC2943Tests PUBLIC 
+target_link_libraries(${This} PUBLIC 
     LTC2943 
     gtest_main
 )

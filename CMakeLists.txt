@@ -1,19 +1,15 @@
 cmake_minimum_required(VERSION 3.13)
 
-set(This LTC2943)
+project(LTC2943)
 
-project(${This})
-
-set(Sources
-    i2c.cpp
-    LTC2943.cpp    
+add_library(LTC2943 STATIC 
+    LTC2943.cpp
+    LTC2943.hpp
+    LTC2943_registers.hpp
 )
 
-set(Headers
-    i2c.hpp
-    LTC2943.hpp    
-)
-
-add_library(${This} STATIC ${Sources} ${Headers})
+add_subdirectory(I2C)
+include_directories(I2C)
+target_link_libraries(LTC2943 PUBLIC I2C)
 
 add_subdirectory(tests)
