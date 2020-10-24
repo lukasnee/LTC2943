@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+// goal tests
+
 TEST(LTC2943Tests, ChangeChipAdcModeIntoAutomaticMode) {
     EXPECT_TRUE(true);
 }
