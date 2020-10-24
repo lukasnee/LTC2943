@@ -1,5 +1,8 @@
 // Dummy code 
 
+/* NOTE. I'm interpreting that i2cRead() and i2cWrite() methods work in blocking
+manner. -lukas */
+
 #include <string>
 #include <iostream>
 
