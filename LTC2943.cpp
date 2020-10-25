@@ -26,6 +26,7 @@ LTC2943::LTC2943()
 
 LTC2943::~LTC2943()
 {
+    
 }
 
 LTC2943::Result LTC2943::getAdcMode(AdcMode &mode)
@@ -50,41 +51,34 @@ R_FINAL_END
 LTC2943::Result LTC2943::setControl(ControlReg reg)
 {
 R_BEGIN
-    const uint8_t controlWriteMsg[2] = {static_cast<uint8_t>(REG_B), reg.byte};
-    R_CHECK(write(reinterpret_cast<const uint8_t *>(&controlWriteMsg[0]), 2));
+    const uint8_t writeMsg[2] = {static_cast<uint8_t>(REG_B), reg.byte};
+    const uint8_t * pWriteMsg = reinterpret_cast<const uint8_t *>(&writeMsg);
+    R_CHECK(write(pWriteMsg, 2));
 R_FINAL_END
 }
 
 LTC2943::Result LTC2943::getControl(ControlReg &reg)
 {
 R_BEGIN
-    ControlReg _reg;
     const uint8_t controlReg = REG_B;
     R_CHECK(write(&controlReg, 1));
-    R_CHECK(read(reinterpret_cast<uint8_t*>(&_reg.byte), 1));
-    reg = _reg;
+    R_CHECK(read(&reg.byte, 1));
 R_FINAL_END
 }
 
 LTC2943::Result LTC2943::getStatus(StatusReg &reg)
 {
 R_BEGIN
-    StatusReg _reg;
     const uint8_t statusReg = REG_A;
     R_CHECK(write(&statusReg, 1));
-    R_CHECK(read(reinterpret_cast<uint8_t*>(&_reg.byte), 1));
-    reg = _reg;
+    R_CHECK(read(&reg.byte, 1));
 R_FINAL_END
 }
 
 LTC2943::Result LTC2943::write(const uint8_t * pSrc, uint16_t dataSize)
 {
 R_BEGIN
-    if(i2cIsInitialized() == false)
-    {
-        R_RETURN(RESULT_NOT_INITIALIZED);
-    }
-
+    R_CHECK(isIntialized());
     if(i2cWrite(LTC2943_I2C_ADDRESS, pSrc, dataSize) == false)
     {
         R_RETURN(RESULT_WRITE_FAIL);
@@ -95,14 +89,20 @@ R_FINAL_END
 LTC2943::Result LTC2943::read(uint8_t * pDst, uint16_t dataSize)
 {
 R_BEGIN
-    if(i2cIsInitialized() == false)
-    {
-        R_RETURN(RESULT_NOT_INITIALIZED);
-    }
-
+    R_CHECK(isIntialized());
     if(i2cRead(LTC2943_I2C_ADDRESS, pDst, dataSize) == false)
     {
         R_RETURN(RESULT_READ_FAIL);
+    }
+R_FINAL_END
+}
+
+LTC2943::Result LTC2943::isIntialized()
+{
+R_BEGIN
+    if(i2cIsInitialized() == false)
+    {
+        R_RETURN(RESULT_NOT_INITIALIZED);
     }
 R_FINAL_END
 }

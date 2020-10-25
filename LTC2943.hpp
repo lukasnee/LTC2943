@@ -84,6 +84,7 @@ private:
     Result getStatus(StatusReg &reg);
     Result write(const uint8_t * pSrc, uint16_t dataSize);
     Result read(uint8_t * pDst, uint16_t dataSize);
+    Result isIntialized();
 };
 
 #endif //LTC2943_HPP
