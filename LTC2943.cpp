@@ -20,15 +20,6 @@
 #define R_END return _RESULT;
 #define R_FINAL_END R_FINAL R_END;
 
-LTC2943::LTC2943()
-{
-}
-
-LTC2943::~LTC2943()
-{
-    
-}
-
 LTC2943::Result LTC2943::getAdcMode(AdcMode &mode)
 {
 R_BEGIN
@@ -46,6 +37,15 @@ R_BEGIN
     reg.fields.adcMode = mode;
     R_CHECK(setControl(reg));
 R_FINAL_END
+}
+
+
+LTC2943::LTC2943()
+{
+}
+
+LTC2943::~LTC2943()
+{
 }
 
 LTC2943::Result LTC2943::setControl(ControlReg reg)

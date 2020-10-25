@@ -45,13 +45,13 @@ public:
         alccAlertMode
     }AlccPinConfig;
 
-    LTC2943();
-    ~LTC2943();
-
     Result init();
     Result getAdcMode(AdcMode &mode);
     Result setAdcMode(AdcMode mode);
     Result deinit();
+
+    LTC2943();
+    ~LTC2943();
 private:
     union StatusReg
     {
