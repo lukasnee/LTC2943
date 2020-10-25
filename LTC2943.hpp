@@ -16,7 +16,7 @@ public:
         RESULT_READ_FAIL,
         RESULT_WRITE_FAIL,
         RESULT_NOT_INITIALIZED,
-        RESULT_ARGUMENT_NULL
+        RESULT_ARGUMENT_NULLPTR
     }Result;    
 
     typedef enum AdcMode_

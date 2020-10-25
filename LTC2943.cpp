@@ -6,16 +6,17 @@
 #include "LTC2943.hpp"
 
 // function result managing helpers
-#define RESULT_TYPE             LTC2943::Result
-#define _RESULT_OK              LTC2943::RESULT_OK
-#define _RESULT_ARGUMENT_NULL   LTC2943::RESULT_ARGUMENT_NULL
+#define RESULT_TYPE                 LTC2943::Result
+#define _RESULT_OK                  LTC2943::RESULT_OK
+#define _RESULT_ARGUMENT_NULLPTR    LTC2943::RESULT_ARGUMENT_NULLPTR
 
 #define R_BEGIN RESULT_TYPE _RESULT = _RESULT_OK;
 #define R_CHECK(resultTypeFnc) \
     _RESULT = (resultTypeFnc); \
     if(_RESULT != _RESULT_OK) { goto R_END_LABEL; }
 #define R_RETURN(result) _RESULT = result; goto R_END_LABEL
-#define R_NULL_CHECK(ptrArg) if(ptrArg == NULL) R_RETURN(_RESULT_ARGUMENT_NULL)
+#define R_NULL_CHECK(ptrArg) if(ptrArg == nullptr) { \
+    R_RETURN(_RESULT_ARGUMENT_NULLPTR); }
 #define R_FINAL R_END_LABEL:;
 #define R_END return _RESULT;
 #define R_FINAL_END R_FINAL R_END;
@@ -95,6 +96,8 @@ R_FINAL_END
 LTC2943::Result LTC2943::write(const uint8_t * pSrc, uint16_t dataSize)
 {
 R_BEGIN
+    R_NULL_CHECK(pSrc);
+    if(dataSize == 0){R_RETURN(RESULT_OK);}
     R_CHECK(isIntialized());
     if(i2cWrite(LTC2943_I2C_ADDRESS, pSrc, dataSize) == false)
     {
@@ -106,6 +109,8 @@ R_FINAL_END
 LTC2943::Result LTC2943::read(uint8_t * pDst, uint16_t dataSize)
 {
 R_BEGIN
+    R_NULL_CHECK(pDst);
+    if(dataSize == 0){R_RETURN(RESULT_OK);}
     R_CHECK(isIntialized());
     if(i2cRead(LTC2943_I2C_ADDRESS, pDst, dataSize) == false)
     {
