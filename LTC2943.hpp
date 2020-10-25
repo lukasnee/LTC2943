@@ -48,6 +48,8 @@ public:
     Result init();
     Result getAdcMode(AdcMode &mode);
     Result setAdcMode(AdcMode mode);
+    Result checkVoltageAlert(bool &isPending);
+    Result checkTemperatureAlert(bool &isPending);
     Result deinit();
 
     LTC2943();
@@ -78,7 +80,7 @@ private:
         } fields;
         uint8_t byte;
     };
-
+    
     Result setControl(ControlReg reg);
     Result getControl(ControlReg &reg);
     Result getStatus(StatusReg &reg);

@@ -54,11 +54,18 @@ TEST(LTC2943Tests, GetChipAdcMode)
 
 TEST(LTC2943Tests, CheckIfTemperatureAlertIsPending) 
 {
-    
-    EXPECT_TRUE(true);
+    LTC2943 ltc;
+    ltc.init();
+    bool isPending;
+    ASSERT_EQ(LTC2943::RESULT_OK, ltc.checkTemperatureAlert(isPending));
+    ASSERT_FALSE(isPending);
 }
 
 TEST(LTC2943Tests, CheckIfVoltageAlertIsPending) 
 {
-    EXPECT_TRUE(true);
+    LTC2943 ltc;
+    ltc.init();
+    bool isPending;
+    ASSERT_EQ(LTC2943::RESULT_OK, ltc.checkVoltageAlert(isPending));
+    ASSERT_FALSE(isPending);
 }

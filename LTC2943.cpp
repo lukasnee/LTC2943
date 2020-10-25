@@ -39,6 +39,23 @@ R_BEGIN
 R_FINAL_END
 }
 
+LTC2943::Result LTC2943::checkVoltageAlert(bool &isPending)
+{
+R_BEGIN
+    StatusReg statusReg;
+    R_CHECK(getStatus(statusReg));
+    isPending = statusReg.regFields.voltageAlertFlag;
+R_FINAL_END
+}
+
+LTC2943::Result LTC2943::checkTemperatureAlert(bool &isPending)
+{
+R_BEGIN
+    StatusReg statusReg;
+    R_CHECK(getStatus(statusReg));
+    isPending = statusReg.regFields.temperatureAlert;
+R_FINAL_END
+}
 
 LTC2943::LTC2943()
 {
