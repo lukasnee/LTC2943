@@ -17,5 +17,6 @@
         "istream": "cpp",
         "sstream": "cpp"
     },
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "cmake.configureOnOpen": true
 }
