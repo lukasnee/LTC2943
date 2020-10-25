@@ -7,3 +7,4 @@ add_library(I2C STATIC
     i2c.hpp
 )
 
+include_directories(${CMAKE_SOURCE_DIR})

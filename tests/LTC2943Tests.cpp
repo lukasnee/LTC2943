@@ -69,3 +69,29 @@ TEST(LTC2943Tests, CheckIfVoltageAlertIsPending)
     ASSERT_EQ(LTC2943::RESULT_OK, ltc.checkVoltageAlert(isPending));
     ASSERT_FALSE(isPending);
 }
+
+
+// i2c emulation backdoor prototypes
+void LTC2943_I2C_EMULATE_STATUS_REG(uint8_t statusReg);
+void LTC2943_I2C_EMULATE_CONTROL_REG(uint8_t controlReg);
+
+
+// goal tests
+TEST(LTC2943Tests, ChangeChipAdcModeIntoManualModeOnEmulatedI2C) 
+{   
+#define EMULATED_CONTROL_REG_VAL 0xF0
+LTC2943_I2C_EMULATE_CONTROL_REG(EMULATED_CONTROL_REG_VAL);
+
+    LTC2943 ltc;
+    ltc.init();
+
+    LTC2943::AdcMode adcMode;
+    ltc.getAdcMode(adcMode); 
+    ASSERT_EQ(LTC2943::adcModeAutomatic, adcMode);
+
+    ltc.setAdcMode(LTC2943::adcModeManual);
+
+    ltc.getAdcMode(adcMode); 
+    ASSERT_EQ(LTC2943::adcModeManual, adcMode);
+}
+
